@@ -1,0 +1,3 @@
+type: hostPath
+localPath: /paiInternalStorage
+capacity: 10Gi
