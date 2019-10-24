@@ -11,21 +11,19 @@ internal-storage:
     capacity: 10Gi
 ```
 
+User can override these settings in `services-configuration.yaml`.
+
 ## Set up Internal Storage
 
-## hostPath
+### hostPath
 
-The default setting will use the host path "/paiInternalStorage", and create "openpai-internal-pv" PV and "openpai-internal-pvc" PVC. It leverages `node affinity` for PV to ensure the folder located on the master node.
+The default setting will use the host path "/paiInternalStorage", and create "openpai-internal-pv" PV and "openpai-internal-pvc" PVC. To ensure the PV always locates on the master node, it leverages `node affinity` in k8s to select the targeted node
 
-## NFS
-
-TBD
-
-## Azure Disk
+### NFS
 
 TBD
 
-## Azure File
+### Azure Disk, Azure File
 
 TBD
 
