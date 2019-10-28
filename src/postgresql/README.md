@@ -24,5 +24,5 @@ Particularly, the connection string is exposed as an environmental variable in `
 
 ```bash
 # in rest-server pod
-SQL_CONNECTION_STR=postgresql://root:rootpass@10.151.40.36:5432/openpai
+SQL_CONNECTION_STR=postgresql://root:rootpass@<master-ip>:5432/openpai
 ```
