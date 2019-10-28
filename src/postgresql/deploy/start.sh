@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright (c) Microsoft Corporation
 # All rights reserved.
 #
@@ -15,33 +17,11 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-cluster-type:
-  - yarn
-  - k8s
+pushd $(dirname "$0") > /dev/null
 
-prerequisite:
-  - cluster-configuration
-  - yarn-frameworklauncher
-  - frameworkcontroller
-  - hivedscheduler
-  - log-manager
-  - postgresql
+kubectl apply --overwrite=true -f postgresql.yaml || exit $?
 
-template-list:
-  - rest-server.yaml
-  - start.sh
-  - configmap-create.sh
-  - auth-configmap/oidc.yaml
-  - group-configmap/group.yaml
-  - job-exit-spec-config/job-exit-spec.yaml
-  - k8s-job-exit-spec-config/k8s-job-exit-spec.yaml
+# Wait until the service is ready.
+PYTHONPATH="../../../deployment" python -m  k8sPaiLibrary.monitorTool.check_pod_ready_status -w -k app -v postgresql || exit $?
 
-start-script: start.sh
-stop-script: stop.sh
-delete-script: delete.sh
-refresh-script: refresh.sh
-upgraded-script: upgraded.sh
-
-
-deploy-rules:
-  - in: pai-master
+popd > /dev/null
