@@ -1,4 +1,4 @@
 user: root
 passwd: rootpass
 db: openpai
-port: 5236
+port: 5432

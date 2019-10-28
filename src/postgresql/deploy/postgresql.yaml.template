@@ -47,7 +47,7 @@ spec:
         - name: internal-data-dir
           mountPath: /var/lib/postgresql/data/
         ports:
-        - containerPort: 5236
+        - containerPort: 5432
           hostPort: {{ cluster_cfg["postgresql"]["port"] }}
           name: postgresql-port
       volumes:
