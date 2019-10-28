@@ -4,10 +4,10 @@ Postgresql is an internal service used for structured information persistence. T
 
 ```yaml
 postgresql:
-	user: root
-	passwd: rootpass
-	port: 5432
-	db: openpai
+  user: root
+  passwd: rootpass
+  port: 5432
+  db: openpai
 ``` 
 
 One can override these settings by editing `services-configuration.yaml` .
