@@ -131,6 +131,8 @@ async function readAll(config) {
     }
     return allGroupInstance;
   } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
     if (error.response) {
       throw error.response;
     } else {
