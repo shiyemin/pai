@@ -16,6 +16,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 template-list:
+  - internal-storage-sc.yaml
   - internal-storage-pv.yaml
   - internal-storage-pvc.yaml
   - start.sh

@@ -15,24 +15,37 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-apiVersion: v1
-kind: PersistentVolume
+apiVersion: apps/v1
+kind: Pod
 metadata:
-  name: openpai-internal-pv
+  name: postgresql
+  labels:
+    app: postgresql
 spec:
-  capacity: 
-    storage: {{ cluster_cfg["internal-storage"]["capacity"] }}
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: "openpai-local-storage"
-  local:
-    path: {{ cluster_cfg["internal-storage"]["localPath"] }}
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: pai-master
-          operator: In
-          values:
-          - "true"
+  hostNetwork: false
+  containers:
+  - name: postgresql
+    image: {{ cluster_cfg["cluster"]["docker-registry"]["prefix"] }}postgresql:{{ cluster_cfg["cluster"]["docker-registry"]["tag"] }}
+    imagePullPolicy: Always
+    env:
+    - name: POSTGRES_USER
+      value: {{ cluster_cfg["postgresql"]["user"] }}
+    - name: POSTGRES_PASSWORD
+      value: {{ cluster_cfg["postgresql"]["passwd"] }}
+    - name: POSTGRES_DB
+      value: {{ cluster_cfg["postgresql"]["db"] }}
+    - name: PGDATA
+      value: /var/lib/postgresql/data/pgdata
+    volumeMounts:
+    - name: internal-data-dir
+      mountPath: /var/lib/postgresql/data/
+    ports:
+    - containerPort: 5432
+      hostPort: {{ cluster_cfg["postgresql"]["port"] }}
+      name: postgresql-port
+  volumes:
+    - name: internal-data-dir
+      persistentVolumeClaim:
+        claimName: openpai-internal-pvc
+  imagePullSecrets:
+  - name: {{ cluster_cfg["cluster"]["docker-registry"]["secret-name"] }}

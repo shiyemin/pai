@@ -1,4 +1,4 @@
 enable: true
 type: local
-localPath: /paiInternalStorage
+localPath: /home/core
 capacity: 10Gi

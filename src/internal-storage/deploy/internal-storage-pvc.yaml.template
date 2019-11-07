@@ -27,4 +27,4 @@ spec:
       storage:  {{ cluster_cfg["internal-storage"]["capacity"] }}
   accessModes:
   - ReadWriteMany
-  storageClassName: ""  # disable storage class to prevent dynamic provision
+  storageClassName: "openpai-local-storage"

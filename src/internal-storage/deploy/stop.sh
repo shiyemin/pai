@@ -15,6 +15,10 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+if kubectl get sc | grep -q "openpai-local-storage"; then
+    kubectl delete sc openpai-local-storage || exit $?
+fi
+
 if kubectl get pvc | grep -q "openpai-internal-pvc"; then
     kubectl delete pvc openpai-internal-pvc || exit $?
 fi

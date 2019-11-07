@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright (c) Microsoft Corporation
 # All rights reserved.
 #
@@ -15,24 +17,11 @@
 # DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: openpai-internal-pv
-spec:
-  capacity: 
-    storage: {{ cluster_cfg["internal-storage"]["capacity"] }}
-  accessModes:
-    - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: "openpai-local-storage"
-  local:
-    path: {{ cluster_cfg["internal-storage"]["localPath"] }}
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-      - matchExpressions:
-        - key: pai-master
-          operator: In
-          values:
-          - "true"
+pushd $(dirname "$0") > /dev/null
+
+kubectl apply --overwrite=true -f postgresql.yaml || exit $?
+
+# Wait until the service is ready.
+PYTHONPATH="../../../deployment" python -m  k8sPaiLibrary.monitorTool.check_pod_ready_status -w -k app -v postgresql || exit $?
+
+popd > /dev/null
