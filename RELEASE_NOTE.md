@@ -19,8 +19,11 @@ Welcome to the Nov 2019 release of OpenPAI. There are a number of updates in thi
 - HiveD
     -  0
 
-- [ Job history ]()
-
+- Job history
+    - EFK deployment to support job history [#3626](https://github.com/microsoft/pai/pull/3626), [#3789](https://github.com/microsoft/pai/pull/3789), [#3815](https://github.com/microsoft/pai/pull/3815), [#3832](https://github.com/microsoft/pai/pull/3832)
+    - API endpoint and webportal page for job history [#3831](https://github.com/microsoft/pai/pull/3831), [#3889](https://github.com/microsoft/pai/pull/3889)
+    
+    
 - User profile page [#3804](https://github.com/microsoft/pai/pull/3804), [#3853](https://github.com/microsoft/pai/pull/3853), [#3884](https://github.com/microsoft/pai/pull/3884)
 
 - Token API
