@@ -17,7 +17,8 @@
 
 FROM python:3.7
 
-RUN apt-get update && apt-get install --no-install-recommends -y build-essential git && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && apt-get install --no-install-recommends -y build-essential git && \
     git clone https://github.com/yadutaf/infilter --depth 1 && \
     cd infilter && make
 

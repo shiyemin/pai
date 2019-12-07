@@ -23,7 +23,8 @@ FROM ubuntu:16.04
 
 WORKDIR /root/
 
-RUN apt-get update && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && \
     apt-get -y install wget build-essential python python-pip git
 
 RUN pip install jinja2

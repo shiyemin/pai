@@ -20,7 +20,8 @@ FROM nvidia/cuda:9.1-cudnn7-devel-ubuntu16.04
 ENV STAGE_DIR=/root/drivers \
     PYTHONPATH=/modules
 
-RUN apt-get -y update && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get -y update && \
     apt-get -y install \
         build-essential \
         gcc \

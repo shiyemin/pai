@@ -17,7 +17,8 @@
 
 FROM node:carbon
 
-RUN apt-get update && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get update && \
     apt-get install --assume-yes --no-install-recommends \
       dos2unix \
       openssh-server \

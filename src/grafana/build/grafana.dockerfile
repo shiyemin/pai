@@ -26,7 +26,7 @@ ENV \
   UPGRADEALL=true
 
 
-RUN \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
   apt-get update && \
   apt-get -y --force-yes --no-install-recommends install libfontconfig curl ca-certificates && \
   curl https://s3-us-west-2.amazonaws.com/grafana-releases/release/grafana_${GRAFANA_VERSION}_amd64.deb > /tmp/grafana.deb && \

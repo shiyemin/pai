@@ -18,7 +18,8 @@
 FROM fluent/fluentd:v1.7-1
 
 USER root
-RUN apk add --no-cache --update --virtual .build-deps \
+RUN sed -i 's/http:\/\/dl-cdn.alpinelinux.org/https:\/\/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+ && apk add --no-cache --update --virtual .build-deps \
         sudo build-base ruby-dev \
  && sudo gem install fluent-plugin-elasticsearch \
  && sudo gem install fluent-plugin-concat \

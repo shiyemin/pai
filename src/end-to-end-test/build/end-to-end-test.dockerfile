@@ -17,7 +17,8 @@
 
 FROM hadoop-run
 
-RUN apt-get -y update && \
+RUN sed -i 's/archive.ubuntu.com/mirrors.ustc.edu.cn/g' /etc/apt/sources.list && \
+    apt-get -y update && \
     apt-get -y install python git jq && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
